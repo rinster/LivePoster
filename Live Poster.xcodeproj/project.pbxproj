@@ -11,8 +11,8 @@
 		0349203C2151B36B007EA2D3 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 0349203B2151B36B007EA2D3 /* art.scnassets */; };
 		0349203E2151B36B007EA2D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0349203D2151B36B007EA2D3 /* ViewController.swift */; };
 		034920412151B36B007EA2D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0349203F2151B36B007EA2D3 /* Main.storyboard */; };
-		034920432151B36E007EA2D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 034920422151B36E007EA2D3 /* Assets.xcassets */; };
 		034920462151B36E007EA2D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 034920442151B36E007EA2D3 /* LaunchScreen.storyboard */; };
+		E3A1CB272151ECFD00126981 /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A1CB262151ECFD00126981 /* MovieModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,9 +21,9 @@
 		0349203B2151B36B007EA2D3 /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		0349203D2151B36B007EA2D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		034920402151B36B007EA2D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		034920422151B36E007EA2D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		034920452151B36E007EA2D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		034920472151B36E007EA2D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3A1CB262151ECFD00126981 /* MovieModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,11 +56,11 @@
 		034920382151B36B007EA2D3 /* Live Poster */ = {
 			isa = PBXGroup;
 			children = (
+				0349203D2151B36B007EA2D3 /* ViewController.swift */,
+				E3A1CB262151ECFD00126981 /* MovieModel.swift */,
 				034920392151B36B007EA2D3 /* AppDelegate.swift */,
 				0349203B2151B36B007EA2D3 /* art.scnassets */,
-				0349203D2151B36B007EA2D3 /* ViewController.swift */,
 				0349203F2151B36B007EA2D3 /* Main.storyboard */,
-				034920422151B36E007EA2D3 /* Assets.xcassets */,
 				034920442151B36E007EA2D3 /* LaunchScreen.storyboard */,
 				034920472151B36E007EA2D3 /* Info.plist */,
 			);
@@ -127,7 +127,6 @@
 			files = (
 				0349203C2151B36B007EA2D3 /* art.scnassets in Resources */,
 				034920462151B36E007EA2D3 /* LaunchScreen.storyboard in Resources */,
-				034920432151B36E007EA2D3 /* Assets.xcassets in Resources */,
 				034920412151B36B007EA2D3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,6 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E3A1CB272151ECFD00126981 /* MovieModel.swift in Sources */,
 				0349203E2151B36B007EA2D3 /* ViewController.swift in Sources */,
 				0349203A2151B36B007EA2D3 /* AppDelegate.swift in Sources */,
 			);
@@ -285,13 +285,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6UC2UM7NVB;
+				DEVELOPMENT_TEAM = 3HXPCZ4FZM;
 				INFOPLIST_FILE = "Live Poster/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Enatnat.Live-Poster";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qn.ToDo-list";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -303,13 +304,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6UC2UM7NVB;
+				DEVELOPMENT_TEAM = 3HXPCZ4FZM;
 				INFOPLIST_FILE = "Live Poster/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.Enatnat.Live-Poster";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qn.ToDo-list";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

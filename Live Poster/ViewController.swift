@@ -11,7 +11,9 @@ import SceneKit
 import ARKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
+    
+    var movie:Movie?
+    
     @IBOutlet var sceneView: ARSCNView!
     
     override func viewDidLoad() {
@@ -23,19 +25,22 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
+        fetchMovie(withIMDBId: BH6MovieId)
         
-        // Set the scene to the view
-        sceneView.scene = scene
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // Create a session configuration
-        let configuration = ARWorldTrackingConfiguration()
-
+        let configuration = ARImageTrackingConfiguration()
+        
+        if let trackedImages = ARReferenceImage.referenceImages(inGroupNamed: "AR Resources", bundle: Bundle.main) {
+            configuration.trackingImages = trackedImages
+            
+            configuration.maximumNumberOfTrackedImages = 1
+        }
+        
         // Run the view's session
         sceneView.session.run(configuration)
     }
@@ -47,34 +52,87 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.pause()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Release any cached data, images, etc that aren't in use.
-    }
-
     // MARK: - ARSCNViewDelegate
     
-/*
-    // Override to create and configure nodes for anchors added to the view's session.
     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
+        
         let node = SCNNode()
-     
+        
+        if let imageAnchor = anchor as? ARImageAnchor {
+            
+            let videoNode = SKVideoNode(fileNamed: "LivePoster.mp4")
+            
+            videoNode.play()
+            
+            let videoScene = SKScene(size: CGSize(width: 640, height: 268))
+            
+            videoNode.position = CGPoint(x: videoScene.size.width / 2, y: videoScene.size.height / 2)
+            
+            videoNode.yScale = -1.0
+            
+            videoScene.addChild(videoNode)
+            
+            
+            let plane = SCNPlane(width: 0.24, height: 0.135)
+            
+            plane.firstMaterial?.diffuse.contents = videoScene
+            
+            let planeNode = SCNNode(geometry: plane)
+            let translateVector = SCNVector3Make(0, 0.06, -0.03)
+            planeNode.localTranslate(by: translateVector)
+            planeNode.eulerAngles.x = -.pi / 2
+            
+            node.addChildNode(planeNode)
+            if let movie = movie {
+                node.addChildNode(addText(withInfoFromMovie: movie))
+            }
+        }
+        
         return node
     }
-*/
     
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
+    func addText(withInfoFromMovie movie: Movie) -> SCNNode {
+        let positionNode = SCNNode()
+        let text = SCNText(string: movie.textInfo(), extrusionDepth: 0.1)
+        text.font = UIFont.systemFont(ofSize: 0.8)
+        text.flatness = 0.01
+        text.firstMaterial?.diffuse.contents = UIColor.white
         
+        let fontSize = Float(0.03)
+        positionNode.geometry = text
+        positionNode.scale = SCNVector3(fontSize, fontSize, fontSize)
+        positionNode.eulerAngles.x = -.pi / 2
+        positionNode.position = SCNVector3(-0.12,0.07,-0.08)
+        return positionNode
     }
     
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
+    func fetchMovie(withIMDBId id:String) {
+        MovieModel.fetchDataForMovie(withId: id) { (data, response, error) in
+                if error != nil {
+                    print(error)
+                }
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers)
+                    let movieDict = json as! NSDictionary
+                    guard let title = movieDict["Title"] as? String else { return }
+                    guard let releasedDateString = movieDict["Released"] as? String else { return }
+                    
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "d MMM yyyy"
+                    guard let releaseDate = dateFormatter.date(from: releasedDateString) else { return }
+                    guard let ratingStr = movieDict["imdbRating"] as? String else { return }
+                    guard let rating = Double(ratingStr) else { return }
+                    
+                    let movie = Movie()
+                    movie.title = title
+                    movie.releaseDate = releaseDate
+                    movie.ratingIMDB = rating
+                    self.movie = movie
+                } catch let jsonError {
+                    print("JSONERROR: \(jsonError)")
+                }
+        }
     }
 }
+

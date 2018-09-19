@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  Live Poster
 //
-//  Created by Erine Natnat on 9/18/18.
-//  Copyright © 2018 Erine Natnat. All rights reserved.
+//  Created by Quang, Erine, Heather, Archanana on 9/18/18.
+//  Copyright © 2018 Live Poster. All rights reserved.
 //
 
 import UIKit
